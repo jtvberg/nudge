@@ -11,10 +11,10 @@
     <button on:click={() => deleteNudge(nudge.id)} class="bg-red-500 text-white p-2 m-2 rounded-full border border-slate-700">X</button>
 </div> -->
 
-<div class="nudge-light">
+<div class="nudge-dark">
     <div class="flex-grow">
         <div class="font-mono text-sm text-gray-600 mb-1">{nudge.who}</div>
-        <div class="text-gray-800 outline-none focus:ring-2 focus:ring-blue-200 rounded px-1" contenteditable="true">{nudge.topic}</div>
+        <div class="text-gray-500 outline-none focus:ring-2 focus:ring-blue-200 rounded px-1" contenteditable="true">{nudge.topic}</div>
     </div>
     <div class="flex items-center space-x-3">
         <input 

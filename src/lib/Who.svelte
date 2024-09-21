@@ -13,10 +13,4 @@
     }
 </script>
 
-<!-- <button on:click={filterNudges} class="{generateColor()} rounded-3xl p-1 m-1">{who}</button> -->
-
-<button
-    on:click={filterNudges} 
-    class="{generateColor()} px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 ease-in-out hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-opacity-50">
-    {who}
-</button>
+<button on:click={filterNudges} class="filter-btn-dark {generateColor()}">{who}</button>
