@@ -4,21 +4,21 @@
     export let toggleNudge
 </script>
 
-<div class="nudge-dark">
+<div class="nudge nudge-dark">
     <div class="flex-grow">
-        <div class="font-mono text-sm text-gray-600 mb-1">{nudge.who}</div>
-        <div class="text-gray-500 outline-none focus:ring-2 focus:ring-blue-200 rounded px-1" contenteditable="true">{nudge.topic}</div>
+        <span class="font-mono text-sm text-gray-600 mb-1">{nudge.who}</span>
+        <span class="text-gray-500 outline-none focus:ring-2 focus:ring-blue-200 rounded px-1" contenteditable="true">{nudge.what}</span>
     </div>
     <div class="flex items-center space-x-3">
         <input 
             type="checkbox" 
-            checked={nudge.nudgeCompleted} 
+            checked={nudge.complete} 
             on:change={() => toggleNudge(nudge.id)} 
-            class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+            class="checkbox checkbox-dark"
         />
         <button 
             on:click={() => deleteNudge(nudge.id)} 
-            class="text-red-500 hover:text-red-700 transition-colors"
+            class="delete-btn delete-btn-dark"
             aria-label="Delete nudge"
         >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

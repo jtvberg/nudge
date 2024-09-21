@@ -17,10 +17,10 @@ let mainWindow
 
 const createWindow = () => {
     mainWindow = new BrowserWindow({
-        width: 600,
-        height: 600,
-        // transparent: true,
-        // frame: false,
+        width: 400,
+        height: 400,
+        transparent: true,
+        frame: false,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
