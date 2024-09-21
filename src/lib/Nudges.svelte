@@ -42,37 +42,7 @@
 
 </script>
 
-<!-- <main class="p-4 w-full bg-slate-900">
-    <section>
-        <form on:submit|preventDefault={handleSubmit}>
-            <label for="new-nudge-title" class="text-white">Who</label>
-            <input bind:value={nudge.who} name="new-nudge-title" type="text" placeholder="AA" class="bg-slate-900 text-white p-2 m-2 rounded-sm border border-slate-700" />
-            <label for="new-nudge-body" class="text-white">What</label>
-            <input bind:value={nudge.topic} name="new-nudge-body" type="text" placeholder="Topic" class="bg-slate-900 text-white p-2 m-2 rounded-sm border border-slate-700" />
-            <button class="bg-cyan-400 text-slate-900 p-2 m-2 rounded-sm border border-slate-700">Add Nudge</button>
-        </form>
-    </section>
-    <section>
-        {#if filter === 'all'}
-            {#each nudges as nudge(nudge.id)}
-                <Nudge {nudge} {deleteNudge} {toggleNudge}/>
-            {/each}
-        {:else}
-            {#each filteredNudges as nudge(nudge.id)}
-                <Nudge {nudge} {deleteNudge} {toggleNudge}/>
-            {/each}
-        {/if}
-    </section>
-    <section class="flex">
-        {#if uniqueWhos.length > 0}
-            {#each uniqueWhos as who}
-                <Who bind:filter {who}/>
-            {/each}
-        {/if}
-    </section>
-</main> -->
-
-<main class="p-6 w-full min-h-screen">
+<section class="p-6 w-full h-screen grid grid-rows-[min-content_1fr_min-content]">
     <section class="mb-8">
         <form on:submit|preventDefault={handleSubmit} class="form-container-dark">
             <div class="flex gap-4">
@@ -82,12 +52,16 @@
                 <div class="flex-1">
                     <input bind:value={nudge.topic} name="new-nudge-what" type="text" placeholder="What" class="input-field-dark" />
                 </div>
-                <button class="btn-primary-dark">+</button>
+                <button class="btn-primary-dark">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                </button>
             </div>
         </form>
     </section>
 
-    <section class="space-y-4 mb-8">
+    <section class="space-y-4 mb-2 overflow-y-auto">
         {#if filter === 'all'}
             {#each nudges as nudge(nudge.id)}
                 <Nudge {nudge} {deleteNudge} {toggleNudge}/>
@@ -106,4 +80,4 @@
             {/each}
         {/if}
     </section>
-</main>
+</section>

@@ -3,7 +3,5 @@
 </script>
 
 <main class="app-main-dark">
-	<section class="app-section-dark">
-		<Nudges/>
-	</section>
+	<Nudges/>
 </main>

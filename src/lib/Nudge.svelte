@@ -4,13 +4,6 @@
     export let toggleNudge
 </script>
 
-<!-- <div class="nudge-primary">
-    <div class="font-mono font-bold">{nudge.who}</div>
-    <div class="text-slate-400 outline-none" contenteditable="true">{nudge.topic}</div>
-    <input type="checkbox" checked={nudge.nudgeCompleted} on:change={() => toggleNudge(nudge.id)} class="m-2"/>
-    <button on:click={() => deleteNudge(nudge.id)} class="bg-red-500 text-white p-2 m-2 rounded-full border border-slate-700">X</button>
-</div> -->
-
 <div class="nudge-dark">
     <div class="flex-grow">
         <div class="font-mono text-sm text-gray-600 mb-1">{nudge.who}</div>
