@@ -2,22 +2,23 @@
     export let nudge
     export let deleteNudge
     export let toggleNudge
+    export let updateNudge
 </script>
 
 <div class="nudge nudge-dark">
     <div class="flex-grow">
         <span class="font-mono text-sm text-gray-600 mb-1">{nudge.who}</span>
-        <span class="text-gray-500 outline-none focus:ring-2 focus:ring-blue-200 rounded px-1" contenteditable="true">{nudge.what}</span>
+        <span bind:textContent={nudge.what} on:input={() => updateNudge(nudge.id, nudge.what)} class="py-1 text-gray-500 outline-none focus:ring-2 focus:ring-blue-200 rounded px-1" contenteditable="true">{nudge.what}</span>
     </div>
     <div class="flex items-center space-x-3">
         <input 
             type="checkbox" 
             checked={nudge.complete} 
-            on:change={() => toggleNudge(nudge.id)} 
+            on:change={() => toggleNudge(nudge.id)}
             class="checkbox checkbox-dark"
         />
         <button 
-            on:click={() => deleteNudge(nudge.id)} 
+            on:click={() => deleteNudge(nudge)}
             class="delete-btn delete-btn-dark"
             aria-label="Delete nudge"
         >

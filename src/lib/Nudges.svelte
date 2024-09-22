@@ -24,9 +24,22 @@
         })
     }
 
-    function deleteNudge(id) {
-        console.log('Deleting Nudge')
-        nudges = nudges.filter(nudge => nudge.id !== id)
+    function updateNudge(id, val) {
+        console.log('Updating Nudge')
+        console.log(id, val)
+        nudges = nudges.map(nudge => {
+            if (nudge.id === id) {
+                return { ...nudge, what: val }
+            }
+            return nudge
+        })
+    }
+
+    function deleteNudge(nd) {
+        if (nd.complete) {
+            console.log('Deleting Nudge')
+            nudges = nudges.filter(nudge => nudge.id !== nd.id)
+        }
     }
 
     function handleSubmit() {
@@ -36,15 +49,13 @@
     }
 
     $: filter = 'all'
-    $: console.log(filter)
     $: uniqueWhos = [...new Set(nudges.map(nudge => nudge.who))] //.sort(function (a, b) {return a.toLowerCase().localeCompare(b.toLowerCase())})
-    $: console.log(uniqueWhos)
     $: filteredNudges = nudges.filter(nudge => nudge.who === filter)
 
 </script>
 
-<section class="p-2 w-full h-screen grid grid-rows-[min-content_1fr_min-content]">
-    <section class="mb-2">
+<section class="gap-2 p-2 w-full h-screen grid grid-rows-[min-content_1fr_min-content]">
+    <section>
         <form on:submit|preventDefault={handleSubmit} class="form-container form-container-dark">
             <div class="flex gap-2">
                 <div class="flex-1">
@@ -62,14 +73,14 @@
         </form>
     </section>
 
-    <section class="space-y-2 mb-2 overflow-y-auto no-draggable">
+    <section class="h-fit max-h-full overflow-y-auto no-draggable">
         {#if filter === 'all'}
             {#each nudges as nudge(nudge.id)}
-                <Nudge {nudge} {deleteNudge} {toggleNudge}/>
+                <Nudge {nudge} {deleteNudge} {toggleNudge} {updateNudge}/>
             {/each}
         {:else}
             {#each filteredNudges as nudge(nudge.id)}
-                <Nudge {nudge} {deleteNudge} {toggleNudge}/>
+                <Nudge {nudge} {deleteNudge} {toggleNudge} {updateNudge}/>
             {/each}
         {/if}
     </section>

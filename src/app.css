@@ -9,12 +9,6 @@
   .app-main-dark {
     @apply bg-gray-950 text-white;
   }
-  .app-section {
-    @apply flex flex-col items-center justify-center;
-  }
-  .app-section-dark {
-    @apply flex flex-col items-center justify-center text-gray-200;
-  }
   .nudge {
     @apply bg-white shadow-sm rounded-lg p-2 mb-2 flex items-center justify-between transition-all hover:shadow-md;
   }
@@ -22,13 +16,13 @@
     @apply bg-gray-800 text-gray-200;
   }
   .input-field {
-    @apply no-draggable w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+    @apply no-draggable w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
   }
   .input-field-dark {
     @apply border-gray-700 bg-gray-700 focus:ring-blue-400 focus:border-blue-400 text-white;
   }
   .btn-primary {
-    @apply no-draggable sm:w-auto px-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors;
+    @apply no-draggable sm:w-auto px-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors;
   }
   .btn-primary-dark {
     @apply bg-blue-500 hover:bg-blue-600 focus:ring-blue-400 focus:ring-offset-gray-900;
@@ -50,12 +44,6 @@
   }
   .checkbox-dark {
     @apply text-blue-500 focus:ring-blue-400;
-  }
-  .main-container {
-    @apply p-6 w-full bg-gray-100 min-h-screen;
-  }
-  .main-container-dark {
-    @apply p-6 w-full bg-gray-900 min-h-screen text-gray-200;
   }
   .form-container {
     @apply bg-white shadow-sm rounded-lg p-2 space-y-2;
