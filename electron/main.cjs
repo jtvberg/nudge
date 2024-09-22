@@ -65,6 +65,8 @@ const createTray = () => {
   })
 }
 
+app.dock.hide()
+
 app.on('ready', () => {
     createWindow()
     createTray()
