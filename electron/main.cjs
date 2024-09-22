@@ -1,5 +1,5 @@
 const { log, clear } = require('console')
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Tray } = require('electron')
 const path = require('path')
 
 if (require('electron-squirrel-startup')) app.quit()
@@ -14,7 +14,6 @@ if (isDevEnvironment) {
 }
 
 let mainWindow
-
 const createWindow = () => {
     mainWindow = new BrowserWindow({
         width: 400,
@@ -54,7 +53,22 @@ const createWindow = () => {
     }
 }
 
-app.on('ready', createWindow)
+let tray = null
+const createTray = () => {
+  tray = new Tray(path.join(__dirname, '../src/assets/iconTemplate@2x.png'))
+  tray.setToolTip('Nudge')
+  tray.on('click', () => {
+    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
+  })
+  tray.on('right-click', () => {
+    app.quit()
+  })
+}
+
+app.on('ready', () => {
+    createWindow()
+    createTray()
+})
 
 app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()

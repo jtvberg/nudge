@@ -22,17 +22,20 @@
             }
             return nudge
         })
+
+        // nudges[nudges.findIndex(nudge => nudge.id === id)].complete = !nudges[nudges.findIndex(nudge => nudge.id === id)].complete
     }
 
     function updateNudge(id, val) {
         console.log('Updating Nudge')
-        console.log(id, val)
-        nudges = nudges.map(nudge => {
-            if (nudge.id === id) {
-                return { ...nudge, what: val }
-            }
-            return nudge
-        })
+        // nudges = nudges.map(nudge => {
+        //     if (nudge.id === id) {
+        //         return { ...nudge, what: val }
+        //     }
+        //     return nudge
+        // })
+
+        nudges[nudges.findIndex(nudge => nudge.id === id)].what = val
     }
 
     function deleteNudge(nd) {
