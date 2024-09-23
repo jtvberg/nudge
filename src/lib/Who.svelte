@@ -25,7 +25,6 @@
             'bg-pink-700', 
             'bg-rose-700']
         const charCode = val.who.toLowerCase().charCodeAt(0)
-        console.log(val)
         return colors[charCode % colors.length]
     }
 </script>

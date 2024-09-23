@@ -40,6 +40,8 @@ const createWindow = () => {
         app.focus()
     }
 
+    mainWindow.setAlwaysOnTop(true, 'floating')
+
     if (isDevEnvironment) {
         mainWindow.loadURL('http://localhost:5173/')
         mainWindow.webContents.on("did-frame-finish-load", () => {

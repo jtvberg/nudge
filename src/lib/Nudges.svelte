@@ -60,14 +60,14 @@
 <section class="gap-2 p-2 w-full h-screen grid grid-rows-[min-content_1fr_min-content]">
     <section>
         <form on:submit|preventDefault={handleSubmit} class="form-container form-container-dark">
-            <div class="flex gap-2">
+            <div class="flex gap-1">
                 <div class="flex-1">
                     <input bind:value={nudge.who} name="new-nudge-who" type="text" placeholder="Who" class="input-field input-field-dark" />
                 </div>
                 <div class="flex-1">
                     <input bind:value={nudge.what} name="new-nudge-what" type="text" placeholder="What" class="input-field input-field-dark" />
                 </div>
-                <button class="btn-primary btn-primary-dark">
+                <button class="btn-primary btn-primary-dark px-1">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
@@ -76,7 +76,7 @@
         </form>
     </section>
 
-    <section class="h-fit max-h-full overflow-y-auto no-draggable">
+    <section class="flex flex-col gap-2 py-0.5 h-fit max-h-full overflow-y-auto no-draggable">
         {#if filter === 'all'}
             {#each nudges as nudge(nudge.id)}
                 <Nudge {nudge} {deleteNudge} {toggleNudge} {updateNudge}/>
