@@ -29,4 +29,5 @@
     }
 </script>
 
-<button on:click={filterNudges} class="filter-btn filter-btn-dark {generateColor({who})}">{who}</button>
+<!-- <button on:click={filterNudges} class="filter-btn filter-btn-dark {generateColor({who})}">{who}</button> -->
+<button on:click={filterNudges} class="filter-btn filter-btn-dark bg-transparent">{who}</button>
