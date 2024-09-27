@@ -1,8 +1,11 @@
 <script>
+    import { onMount, onDestroy } from 'svelte'
+
     export let nudge
     export let deleteNudge
     export let toggleNudge
     export let updateNudge
+
     const colors = ['text-red-500',
             'text-orange-500',
             'text-yellow-500',
@@ -41,8 +44,28 @@
         return hoursDelta
     }
 
-    $:currentColor = generateColor()
-    $:currentAge = getAge()
+    $: currentColor = generateColor()
+    $: currentAge = getAge()
+    
+    $: {
+        if (nudge) {
+            currentColor = generateColor()
+            currentAge = getAge()
+        }
+    }
+
+    let intervalId;
+
+    onMount(() => {
+        intervalId = setInterval(() => {
+            currentAge = getAge()
+            currentColor = generateColor()
+        }, 5 * 60 * 1000)
+    })
+
+    onDestroy(() => {
+        if (intervalId) clearInterval(intervalId);
+    })
 </script>
 
 <div class="flex flex-row gap-1 items-center">
@@ -50,9 +73,7 @@
     <div bind:textContent={nudge.what} on:input={() => updateNudge(nudge.id, nudge.what)} 
         class="flex-grow px-1 rounded-md text-gray-200 outline-none focus:ring-2 focus:ring-blue-200"
         contenteditable="true">{nudge.what}</div>
-        {#key currentColor||currentAge}
             <div class="font-mono text-sm {currentColor} pt-0.5 user-select-none">{currentAge}hrs</div>
-        {/key}
     <div class="flex items-center space-x-1">
         <input 
             type="checkbox" 

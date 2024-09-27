@@ -54,7 +54,7 @@
 }
 
 :root {
-  --form-control-color: #4c3399;
+  --form-control-color: #2563eb;
   --form-control-disabled: #959495;
 }
 
@@ -73,6 +73,7 @@
 input[type="checkbox"] {
   appearance: none;
   margin: 0;
+  margin-top: 1px;
   font: inherit;
   color: currentColor;
   width: 1.15em;
