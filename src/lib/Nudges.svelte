@@ -22,19 +22,10 @@
             }
             return nudge
         })
-
-        // nudges[nudges.findIndex(nudge => nudge.id === id)].complete = !nudges[nudges.findIndex(nudge => nudge.id === id)].complete
     }
 
     function updateNudge(id, val) {
         console.log('Updating Nudge')
-        // nudges = nudges.map(nudge => {
-        //     if (nudge.id === id) {
-        //         return { ...nudge, what: val }
-        //     }
-        //     return nudge
-        // })
-
         nudges[nudges.findIndex(nudge => nudge.id === id)].what = val
     }
 
@@ -45,6 +36,17 @@
         }
     }
 
+    function sortNudges(nudges) {
+        return nudges.sort((a, b) => {
+            // First, sort by completion status
+            if (a.complete !== b.complete) {
+                return a.complete ? 1 : -1;
+            }
+            // If completion status is the same, sort by creation time (oldest first)
+            return a.createdAt - b.createdAt;
+        });
+    }
+
     function handleSubmit() {
         addNudge()
         nudge = { who: '', what: '' }
@@ -53,7 +55,8 @@
 
     $: filter = 'all'
     $: uniqueWhos = [...new Set(nudges.map(nudge => nudge.who))].sort(function (a, b) {return a.toLowerCase().localeCompare(b.toLowerCase())})
-    $: filteredNudges = nudges.filter(nudge => nudge.who === filter)
+    $: sortedNudges = sortNudges(nudges)
+    $: filteredNudges = sortNudges(nudges.filter(nudge => nudge.who === filter))
 
 </script>
 
@@ -76,9 +79,9 @@
         </form>
     </section>
 
-    <section class="flex flex-col gap-2 py-0.5 h-fit max-h-full overflow-y-auto no-draggable">
+    <section class="flex flex-col py-0.5 h-fit max-h-full overflow-y-auto no-draggable">
         {#if filter === 'all'}
-            {#each nudges as nudge(nudge.id)}
+            {#each sortedNudges as nudge(nudge.id)}
                 <Nudge {nudge} {deleteNudge} {toggleNudge} {updateNudge}/>
             {/each}
         {:else}

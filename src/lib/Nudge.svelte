@@ -68,7 +68,7 @@
     })
 </script>
 
-<div class="flex flex-row gap-1 items-center">
+<div class="flex flex-row py-0.5 gap-1 items-center even:bg-[#111111]">
     <div class="font-mono text-sm text-gray-500 pt-0.5 user-select-none">{nudge.who}</div>
     <div bind:textContent={nudge.what} on:input={() => updateNudge(nudge.id, nudge.what)} 
         class="flex-grow px-1 rounded-md text-gray-200 outline-none focus:ring-2 focus:ring-blue-200"
@@ -83,11 +83,12 @@
         />
         <button 
             on:click={() => deleteNudge(nudge)}
-            class="delete-btn delete-btn-dark"
+            class="delete-btn delete-btn-dark disabled:opacity-50 disabled:text-gray-500 disabled:cursor-not-allowed"
             aria-label="Delete nudge"
+            disabled={!nudge.complete}
         >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
     </div>
