@@ -90,10 +90,13 @@
 
     <section class="flex flex-wrap justify-center gap-1.5">
         {#if uniqueWhos.length > 0}
-            <button on:click={() => filter = 'all'} class="filter-btn filter-btn-dark">Show All</button>
-            {#each uniqueWhos as who}
-                <Who bind:filter {who}/>
-            {/each}
+            {#if filter === 'all'}
+                {#each uniqueWhos as who}
+                    <Who bind:filter {who}/>
+                {/each}
+            {:else}
+                <button on:click={() => filter = 'all'} class="filter-btn filter-btn-dark">Show All</button>
+            {/if}
         {/if}
     </section>
 </section>

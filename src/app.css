@@ -28,7 +28,7 @@
     @apply bg-gray-900 hover:bg-gray-800 focus:ring-blue-400 focus:ring-offset-gray-900;
   }
   .filter-btn {
-    @apply no-draggable px-2 py-1 rounded-full text-sm font-medium transition-colors duration-200 ease-in-out opacity-70 hover:opacity-100;
+    @apply no-draggable px-1.5 py-0.5 rounded-full text-sm font-medium transition-colors duration-200 ease-in-out opacity-70 hover:opacity-100 border border-gray-300;
   }
   .filter-btn-dark {
     @apply text-gray-200;
@@ -53,6 +53,11 @@
   }
 }
 
+:root {
+  --form-control-color: #4c3399;
+  --form-control-disabled: #959495;
+}
+
 .draggable {
   -webkit-app-region: drag;
 }
@@ -63,4 +68,40 @@
 
 .user-select-none {
   user-select: none;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.1em solid currentColor;
+  border-radius: 0.25em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-control-color);
+  /* Windows High Contrast Mode */
+  background-color: CanvasText;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:focus {
+  outline: max(1px, 0.1em) solid currentColor;
+  outline-offset: max(1px, 0.1em);
 }

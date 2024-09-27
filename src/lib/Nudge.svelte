@@ -3,37 +3,36 @@
     export let deleteNudge
     export let toggleNudge
     export let updateNudge
-    const colors = ['bg-red-500',
-            'bg-orange-500',
-            'bg-yellow-500',
-            'bg-green-500',
-            'bg-blue-500',
-            'bg-red-600',
-            'bg-orange-600',
-            'bg-yellow-600',
-            'bg-green-600',
-            'bg-blue-600',
-            'bg-red-700',
-            'bg-orange-700',
-            'bg-yellow-700',
-            'bg-green-700',
-            'bg-blue-700',
+    const colors = ['text-red-500',
+            'text-orange-500',
+            'text-yellow-500',
+            'text-green-500',
+            'text-blue-500',
+            'text-red-600',
+            'text-orange-600',
+            'text-yellow-600',
+            'text-green-600',
+            'text-blue-600',
+            'text-red-700',
+            'text-orange-700',
+            'text-yellow-700',
+            'text-green-700',
+            'text-blue-700',
         ]
 
     function generateColor () {
-        const colorSaturation = 600
+        const colorSaturation = 500
         const timeDelta = Date.now() - nudge.createdAt
-        let color = `bg-green-${colorSaturation}`
-        if (timeDelta > 1000 * 60 * 60 * 1) {
-            color = `bg-blue-${colorSaturation}`
-        }
+        let color = `text-green-${colorSaturation}`
         if (timeDelta > 1000 * 60 * 60 * 12) {
-            color = `bg-yellow-${colorSaturation}`
+            color = `text-yellow-${colorSaturation}`
         }
         if (timeDelta > 1000 * 60 * 60 * 24) {
-            color = `bg-red-${colorSaturation}`
+            color = `text-red-${colorSaturation}`
         }
-        console.log(color)
+        if (nudge.complete) {
+            color = `text-blue-${colorSaturation}`
+        }
         return color
     }
     function getAge () {
@@ -41,14 +40,19 @@
         const hoursDelta = Math.floor(timeDelta / (1000 * 60 * 60))
         return hoursDelta
     }
+
+    $:currentColor = generateColor()
+    $:currentAge = getAge()
 </script>
 
 <div class="flex flex-row gap-1 items-center">
     <div class="font-mono text-sm text-gray-500 pt-0.5 user-select-none">{nudge.who}</div>
     <div bind:textContent={nudge.what} on:input={() => updateNudge(nudge.id, nudge.what)} 
-        class="flex-grow px-1 rounded-md {generateColor()} text-gray-200 outline-none focus:ring-2 focus:ring-blue-200"
+        class="flex-grow px-1 rounded-md text-gray-200 outline-none focus:ring-2 focus:ring-blue-200"
         contenteditable="true">{nudge.what}</div>
-    <div class="font-mono text-sm text-gray-500 pt-0.5 user-select-none">{getAge()} hours ago</div>
+        {#key currentColor||currentAge}
+            <div class="font-mono text-sm {currentColor} pt-0.5 user-select-none">{currentAge}hrs</div>
+        {/key}
     <div class="flex items-center space-x-1">
         <input 
             type="checkbox" 
