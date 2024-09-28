@@ -11,7 +11,7 @@
 
     function addNudge() {
         console.log('Adding Nudge')
-        nudges = [...nudges, { id: generateId(), who: nudge.who, what: nudge.what, complete: false, createdAt: Date.now() }]
+        nudges = [...nudges, { id: generateId(), who: nudge.who ? nudge.who : 'Me', what: nudge.what, complete: false, createdAt: Date.now() }]
     }
 
     function toggleNudge(id) {
@@ -38,13 +38,11 @@
 
     function sortNudges(nudges) {
         return nudges.sort((a, b) => {
-            // First, sort by completion status
             if (a.complete !== b.complete) {
-                return a.complete ? 1 : -1;
+                return a.complete ? 1 : -1
             }
-            // If completion status is the same, sort by creation time (oldest first)
-            return a.createdAt - b.createdAt;
-        });
+            return a.createdAt - b.createdAt
+        })
     }
 
     function handleSubmit() {
@@ -67,7 +65,7 @@
                 <div class="flex-1">
                     <input bind:value={nudge.who} name="new-nudge-who" type="text" placeholder="Who" class="input-field input-field-dark" />
                 </div>
-                <div class="flex-1">
+                <div class=" flex-[2]">
                     <input bind:value={nudge.what} name="new-nudge-what" type="text" placeholder="What" class="input-field input-field-dark" />
                 </div>
                 <button class="btn-primary btn-primary-dark">
