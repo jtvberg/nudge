@@ -34,7 +34,7 @@ const createWindow = () => {
 
     const setupTimeout = () => {
         clearTimeout(timeoutFocus)
-        timeoutFocus = setTimeout(showWindow, 3600000)
+        timeoutFocus = setTimeout(showWindow, 1000 * 60 * 60)
     }
 
     const showWindow = () => {
@@ -50,7 +50,6 @@ const createWindow = () => {
             mainWindow.webContents.openDevTools()
         })
         log('Electron running in dev mode: 🧪')
-
     } else {
         mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'))
         log('Electron running in prod mode: 🚀')

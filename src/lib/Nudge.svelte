@@ -64,7 +64,7 @@
     })
 
     onDestroy(() => {
-        if (intervalId) clearInterval(intervalId);
+        if (intervalId) clearInterval(intervalId)
     })
 </script>
 

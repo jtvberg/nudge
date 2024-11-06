@@ -11,7 +11,7 @@
 
     function addNudge() {
         console.log('Adding Nudge')
-        nudges = [...nudges, { id: generateId(), who: nudge.who ? nudge.who : 'Me', what: nudge.what, complete: false, createdAt: Date.now() }]
+        nudges = [...nudges, { id: generateId(), who: nudge.who ? nudge.who.trim() : 'Me', what: nudge.what, complete: false, createdAt: Date.now() }]
     }
 
     function toggleNudge(id) {
