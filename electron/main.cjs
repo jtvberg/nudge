@@ -27,14 +27,21 @@ const createWindow = () => {
         }
     })
 
+    let autoFocus = true
     let timeoutFocus = undefined
     mainWindow.on('blur', () => {
-        setupTimeout()
+        if (autoFocus) {
+            resetTimeout()
+            setupTimeout()
+        }
     })
 
     const setupTimeout = () => {
-        clearTimeout(timeoutFocus)
         timeoutFocus = setTimeout(showWindow, 1000 * 60 * 60)
+    }
+
+    const resetTimeout = () => {
+        clearTimeout(timeoutFocus)
     }
 
     const showWindow = () => {
@@ -46,8 +53,8 @@ const createWindow = () => {
 
     if (isDevEnvironment) {
         mainWindow.loadURL('http://localhost:5173/')
-        mainWindow.webContents.on("did-frame-finish-load", () => {
-            mainWindow.webContents.openDevTools()
+        mainWindow.webContents.on('did-frame-finish-load', () => {
+            // mainWindow.webContents.openDevTools()
         })
         log('Electron running in dev mode: 🧪')
     } else {
