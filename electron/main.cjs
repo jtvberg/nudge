@@ -5,6 +5,7 @@ const path = require('path')
 if (require('electron-squirrel-startup')) app.quit()
 
 const isDevEnvironment = process.env.DEV_ENV === 'true'
+const isMac = process.platform === 'darwin'
 
 if (isDevEnvironment) {
     require('electron-reload')(__dirname, {
@@ -65,17 +66,19 @@ const createWindow = () => {
 
 let tray = null
 const createTray = () => {
-  tray = new Tray(path.join(__dirname, '../src/assets/iconTemplate@2x.png'))
-  tray.setToolTip('Nudge')
-  tray.on('click', () => {
-    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
-  })
-  tray.on('right-click', () => {
-    app.quit()
-  })
+    tray = new Tray(path.join(__dirname, '../src/assets/iconTemplate@2x.png'))
+    tray.setToolTip('Nudge')
+    tray.on('click', () => {
+        mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
+    })
+    tray.on('right-click', () => {
+        app.quit()
+    })
 }
 
-app.dock.hide()
+if (isMac) {
+    app.dock.hide()
+}
 
 app.on('ready', () => {
     createWindow()
