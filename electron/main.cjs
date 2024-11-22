@@ -6,6 +6,7 @@ if (require('electron-squirrel-startup')) app.quit()
 
 const isDevEnvironment = process.env.DEV_ENV === 'true'
 const isMac = process.platform === 'darwin'
+const isWin = process.platform === 'win32'
 
 if (isDevEnvironment) {
     require('electron-reload')(__dirname, {
@@ -54,6 +55,10 @@ const createWindow = () => {
 
     if (isMac) {
         app.dock.hide()
+    }
+
+    if (isWin) {
+        mainWindow.setSkipTaskbar(true)
     }
 
     if (isDevEnvironment) {
