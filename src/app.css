@@ -6,48 +6,63 @@
   .app-main {
     @apply min-h-screen bg-neutral-100 text-neutral-900 flex flex-col rounded-lg draggable;
   }
+
   .app-main-dark {
     @apply bg-neutral-950 text-white;
   }
+
   .nudge {
     @apply bg-white shadow-sm rounded-lg p-2 mb-2 flex items-center justify-between transition-all hover:shadow-md;
   }
+
   .nudge-dark {
     @apply bg-neutral-800 text-neutral-200;
   }
+
   .input-field {
     @apply no-draggable w-full px-1 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500;
   }
+
   .input-field-dark {
     @apply border-neutral-700 bg-neutral-700 focus:ring-blue-200 focus:border-blue-200 text-white;
   }
+
   .btn-primary {
     @apply no-draggable sm:w-auto bg-sky-600 text-white rounded-full shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors;
   }
+
   .btn-primary-dark {
     @apply bg-neutral-900 hover:bg-neutral-800 focus:ring-sky-400 focus:ring-offset-neutral-900;
   }
+
   .filter-btn {
     @apply no-draggable px-1.5 py-0.5 rounded-full text-sm font-medium transition-colors duration-200 ease-in-out opacity-70 hover:opacity-100 border border-neutral-300;
   }
+
   .filter-btn-dark {
     @apply text-neutral-200;
   }
+
   .delete-btn {
     @apply no-draggable text-red-500 hover:text-red-700 transition-colors;
   }
+
   .delete-btn-dark {
-    @apply text-red-500 hover:text-red-700 ;
+    @apply text-red-500 hover:text-red-700;
   }
+
   .checkbox {
     @apply no-draggable w-4 h-4 text-sky-600 rounded focus:ring-sky-500;
   }
+
   .checkbox-dark {
     @apply text-sky-500 focus:ring-sky-400;
   }
+
   .form-container {
     @apply bg-white shadow-sm rounded-lg space-y-0.5;
   }
+
   .form-container-dark {
     @apply bg-transparent;
   }

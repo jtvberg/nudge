@@ -52,6 +52,10 @@ const createWindow = () => {
 
     mainWindow.setAlwaysOnTop(true, 'floating')
 
+    if (isMac) {
+        app.dock.hide()
+    }
+
     if (isDevEnvironment) {
         mainWindow.loadURL('http://localhost:5173/')
         mainWindow.webContents.on('did-frame-finish-load', () => {
@@ -68,6 +72,7 @@ let tray = null
 const createTray = () => {
     tray = new Tray(path.join(__dirname, '../src/assets/iconTemplate@2x.png'))
     tray.setToolTip('Nudge')
+    setTrayTheme()
     tray.on('click', () => {
         mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
     })
@@ -76,8 +81,15 @@ const createTray = () => {
     })
 }
 
-if (isMac) {
-    app.dock.hide()
+// set tray icon based on system theme and OS
+const setTrayTheme = () => {
+    if (!isMac) {
+        if (nativeTheme.shouldUseDarkColors) {
+            tray.setImage(path.join(__dirname, '../src/assets/icon_tray_white_32.png'))
+        } else {
+            tray.setImage(path.join(__dirname, '../src/assets/iconTemplate@2x.png'))
+        }
+    }
 }
 
 app.on('ready', () => {
