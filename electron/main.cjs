@@ -1,5 +1,5 @@
 const { log, clear } = require('console')
-const { app, BrowserWindow, Tray } = require('electron')
+const { app, BrowserWindow, Tray, nativeTheme } = require('electron')
 const path = require('path')
 
 if (require('electron-squirrel-startup')) app.quit()
