@@ -4,7 +4,7 @@
 
 @layer components {
   .app-main {
-    @apply min-h-screen bg-neutral-100 text-neutral-900 flex flex-col draggable;
+    @apply min-h-screen bg-neutral-100 text-neutral-900 flex flex-col rounded-lg draggable;
   }
   .app-main-dark {
     @apply bg-neutral-950 text-white;
