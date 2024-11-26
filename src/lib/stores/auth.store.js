@@ -28,7 +28,6 @@ function createAuthStore() {
       if (error) throw error
       set(null)
     },
-    // Initialize the store with the current session
     init: async () => {
       const { data: { user } } = await supabase.auth.getUser()
       set(user)
@@ -37,5 +36,4 @@ function createAuthStore() {
 }
 
 export const authStore = createAuthStore()
-// Initialize the store
 authStore.init()

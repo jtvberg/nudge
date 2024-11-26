@@ -12,13 +12,11 @@ function createNudgeStore() {
     }
   };
 
-  // Add helper for optimistic updates
   const optimisticUpdate = (updateFn, revertFn) => {
     update(updateFn);
     return () => update(revertFn);
   };
 
-  // Initialize sync with Supabase
   async function initializeSync() {
     const { data, error } = await supabase
       .from('nudges')
@@ -30,12 +28,10 @@ function createNudgeStore() {
     }
   }
 
-  // Add a Set to track pending inserts
   const pendingInserts = new Set();
   const pendingUpdates = new Set();
   const pendingDeletes = new Set();
 
-  // Modify the subscription handler
   const subscription = supabase
     .channel('nudges_channel')
     .on('postgres_changes',
@@ -44,15 +40,12 @@ function createNudgeStore() {
         switch (payload.eventType) {
           case 'INSERT':
             update(nudges => {
-              // If this was our optimistic update, just remove it from pending
               if (pendingInserts.has(payload.new.id)) {
                 pendingInserts.delete(payload.new.id);
-                // Replace the optimistic version with the server version
                 return nudges.map(n =>
                   n.id === payload.new.id ? payload.new : n
                 );
               }
-              // Otherwise it's a new nudge from another client
               return [payload.new, ...nudges];
             });
             break;
@@ -60,7 +53,7 @@ function createNudgeStore() {
             update(nudges => {
               if (pendingUpdates.has(payload.new.id)) {
                 pendingUpdates.delete(payload.new.id);
-                return nudges; // Skip update as we already have it
+                return nudges;
               }
               return nudges.map(n =>
                 n.id === payload.new.id ? payload.new : n
@@ -71,7 +64,7 @@ function createNudgeStore() {
             update(nudges => {
               if (pendingDeletes.has(payload.old.id)) {
                 pendingDeletes.delete(payload.old.id);
-                return nudges; // Skip delete as we already did it
+                return nudges;
               }
               return nudges.filter(n => n.id !== payload.old.id);
             });
@@ -81,7 +74,6 @@ function createNudgeStore() {
     )
     .subscribe();
 
-  // Initialize sync on store creation
   initializeSync()
 
   return {
@@ -99,7 +91,6 @@ function createNudgeStore() {
         created_at: new Date().toISOString()
       };
 
-      // Track this insert
       pendingInserts.add(newNudge.id);
 
       const revert = optimisticUpdate(
@@ -141,7 +132,6 @@ function createNudgeStore() {
     },
 
     toggle: async (id) => {
-      // First get the current state
       const { data: currentNudge, error: fetchError } = await supabase
         .from('nudges')
         .select('complete')
@@ -150,7 +140,6 @@ function createNudgeStore() {
 
       handleError(fetchError);
 
-      // Set up optimistic update
       const newComplete = !currentNudge.complete;
       const revert = optimisticUpdate(
         nudges => nudges.map(n =>
@@ -161,7 +150,6 @@ function createNudgeStore() {
         )
       );
 
-      // Perform the actual update
       const { error } = await supabase
         .from('nudges')
         .update({ complete: newComplete })

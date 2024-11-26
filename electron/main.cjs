@@ -86,7 +86,6 @@ const createTray = () => {
     })
 }
 
-// set tray icon based on system theme and OS
 const setTrayTheme = () => {
     if (!isMac) {
         if (nativeTheme.shouldUseDarkColors) {

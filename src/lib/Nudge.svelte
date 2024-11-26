@@ -47,7 +47,6 @@
     let intervalId;
     let updateTimeout;
 
-    // Debounced update function
     function handleUpdate(event) {
         if (updateTimeout) clearTimeout(updateTimeout);
         updateTimeout = setTimeout(() => {
