@@ -96,8 +96,16 @@
     <div
         bind:textContent={nudge.what}
         on:input={handleUpdate}
+        on:keydown={(e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                e.target.blur();
+            }
+        }}
         class="flex-grow px-1 rounded-md text-gray-200 outline-none focus:ring-2 focus:ring-blue-200"
         contenteditable="true"
+        role="textbox"
+        tabindex="0"
     >
         {nudge.what}
     </div>
