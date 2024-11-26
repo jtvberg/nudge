@@ -31,10 +31,10 @@
     function generateColor(complete, created_at) {
         const colorSaturation = 500;
         const hour = 1000 * 60 * 60;
-        const timeDelta = getAge(created_at);
+        const timeDelta = Date.now() - Date.parse(created_at);
         if (complete) return `text-blue-${colorSaturation}`;
         if (timeDelta > hour * 24) return `text-red-${colorSaturation}`;
-        if (timeDelta > hour * 12) return `text-yellow-${colorSaturation}`;
+        if (timeDelta > hour * 3) return `text-yellow-${colorSaturation}`;
         return `text-green-${colorSaturation}`;
     }
 
@@ -67,7 +67,6 @@
     async function handleToggle() {
         try {
             await onToggle(nudge.id);
-            // currentColor = generateColor();
         } catch (error) {
             console.error('Failed to toggle:', error);
         }
@@ -76,10 +75,10 @@
     onMount(() => {
         intervalId = setInterval(
             () => {
-                currentAge = getAge();
-                // currentColor = generateColor();
+                currentAge = getAge(created_at);
+                currentColor = generateColor(complete, created_at);
             },
-            5 * 60 * 1000,
+            60 * 5 * 1000,
         );
     });
 
