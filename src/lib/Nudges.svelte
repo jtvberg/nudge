@@ -1,4 +1,5 @@
 <script>
+    import { onDestroy } from 'svelte';
     import { nudgeStore } from './stores/nudges.store';
     import Nudge from '$lib/Nudge.svelte';
     import Who from '$lib/Who.svelte';
@@ -35,6 +36,10 @@
     $: filteredNudges = sortNudges(
         nudges.filter((nudge) => nudge.who === filter),
     );
+
+    onDestroy(() => {
+        nudgeStore.destroy();
+    });
 </script>
 
 <section

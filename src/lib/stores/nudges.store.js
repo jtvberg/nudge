@@ -160,6 +160,10 @@ function createNudgeStore() {
         .eq('id', id);
 
       handleError(error, revert);
+    },
+
+    destroy: () => {
+      subscription.unsubscribe()
     }
   }
 }
