@@ -8,6 +8,7 @@
     $: nudges = $nudgeStore;
 
     function sortNudges(nudges) {
+        console.log(nudges);
         return nudges.sort((a, b) => {
             if (a.complete !== b.complete) {
                 return a.complete ? 1 : -1;

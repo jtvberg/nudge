@@ -30,29 +30,54 @@ function createNudgeStore() {
     }
   }
 
-  // Subscribe to realtime changes
+  // Add a Set to track pending inserts
+  const pendingInserts = new Set();
+
+  // Modify the subscription handler
   const subscription = supabase
     .channel('nudges_channel')
     .on('postgres_changes',
       { event: '*', schema: 'public', table: 'nudges' },
       (payload) => {
-        // Handle different types of changes
         switch (payload.eventType) {
           case 'INSERT':
-            update(nudges => [payload.new, ...nudges])
-            break
+            update(nudges => {
+              // If this was our optimistic update, just remove it from pending
+              if (pendingInserts.has(payload.new.id)) {
+                pendingInserts.delete(payload.new.id);
+                // Replace the optimistic version with the server version
+                return nudges.map(n =>
+                  n.id === payload.new.id ? payload.new : n
+                );
+              }
+              // Otherwise it's a new nudge from another client
+              return [payload.new, ...nudges];
+            });
+            break;
           case 'UPDATE':
-            update(nudges => nudges.map(n =>
-              n.id === payload.new.id ? payload.new : n
-            ))
-            break
+            update(nudges => {
+              if (pendingUpdates.has(payload.new.id)) {
+                pendingUpdates.delete(payload.new.id);
+                return nudges; // Skip update as we already have it
+              }
+              return nudges.map(n =>
+                n.id === payload.new.id ? payload.new : n
+              );
+            });
+            break;
           case 'DELETE':
-            update(nudges => nudges.filter(n => n.id !== payload.old.id))
-            break
+            update(nudges => {
+              if (pendingDeletes.has(payload.old.id)) {
+                pendingDeletes.delete(payload.old.id);
+                return nudges; // Skip delete as we already did it
+              }
+              return nudges.filter(n => n.id !== payload.old.id);
+            });
+            break;
         }
       }
     )
-    .subscribe()
+    .subscribe();
 
   // Initialize sync on store creation
   initializeSync()
@@ -72,6 +97,9 @@ function createNudgeStore() {
         created_at: new Date().toISOString()
       };
 
+      // Track this insert
+      pendingInserts.add(newNudge.id);
+
       const revert = optimisticUpdate(
         nudges => [newNudge, ...nudges],
         nudges => nudges.filter(n => n.id !== newNudge.id)
@@ -81,7 +109,11 @@ function createNudgeStore() {
         .from('nudges')
         .insert([newNudge]);
 
-      handleError(error, revert);
+      if (error) {
+        pendingInserts.delete(newNudge.id);
+        revert();
+        handleError(error);
+      }
     },
 
     update: async (id, newValue) => {
