@@ -1,4 +1,4 @@
-const { log, clear } = require('console')
+const { log } = require('console')
 const { app, BrowserWindow, Tray, nativeTheme } = require('electron')
 const path = require('path')
 
@@ -64,7 +64,7 @@ const createWindow = () => {
     if (isDevEnvironment) {
         mainWindow.loadURL('http://localhost:5173/')
         mainWindow.webContents.on('did-frame-finish-load', () => {
-            // mainWindow.webContents.openDevTools()
+            mainWindow.webContents.openDevTools()
         })
         log('Electron running in dev mode: 🧪')
     } else {
