@@ -32,6 +32,8 @@ function createNudgeStore() {
 
   // Add a Set to track pending inserts
   const pendingInserts = new Set();
+  const pendingUpdates = new Set();
+  const pendingDeletes = new Set();
 
   // Modify the subscription handler
   const subscription = supabase
