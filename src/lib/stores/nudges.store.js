@@ -3,6 +3,7 @@ import { supabase } from '$lib/supabase/supabase.client'
 
 function createNudgeStore() {
   const { subscribe, set, update } = writable([])
+  let subscription = null;
 
   const handleError = (error, revertFn) => {
     if (error) {
@@ -18,6 +19,8 @@ function createNudgeStore() {
   };
 
   async function initializeSync() {
+    if (subscription) subscription.unsubscribe();
+
     const { data, error } = await supabase
       .from('nudges')
       .select('*')
@@ -32,7 +35,7 @@ function createNudgeStore() {
   const pendingUpdates = new Set();
   const pendingDeletes = new Set();
 
-  const subscription = supabase
+  subscription = supabase
     .channel('nudges_channel')
     .on('postgres_changes',
       { event: '*', schema: 'public', table: 'nudges' },
@@ -184,8 +187,15 @@ function createNudgeStore() {
       handleError(error, revert);
     },
 
+    clear: () => {
+      if (subscription) subscription.unsubscribe();
+      subscription = null;
+      set([]);
+    },
+    initializeSync,
     destroy: () => {
-      subscription.unsubscribe()
+      if (subscription) subscription.unsubscribe();
+      subscription = null;
     }
   }
 }

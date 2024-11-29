@@ -5,10 +5,10 @@
   let password = '';
   let error = null;
 
-  async function handleLogin() {
+  async function handleSignup() {
     try {
       error = null;
-      await authStore.signIn(email, password);
+      await authStore.signUp(email, password);
     } catch (e) {
       error = e.message;
     }
@@ -18,10 +18,10 @@
 <section
   class="gap-2 p-2 mt-2 h-screen grid grid-rows-[min-content_1fr_min-content] w-3/4 justify-center self-center"
 >
-  <div class="text-lg font-bold">Login</div>
+  <div class="text-lg font-bold">Sign Up</div>
   <form
     class="form-container form-container-dark flex flex-col gap-1"
-    on:submit|preventDefault={handleLogin}
+    on:submit|preventDefault={handleSignup}
   >
     <div>
       <label for="email">Email</label>
@@ -43,10 +43,6 @@
         required
       />
     </div>
-    <button
-      class="btn-primary btn-primary-dark px-2 py-1 rounded-lg [&&]:mb-2"
-      type="submit">Login</button
-    >
     <button
       class="btn-primary btn-primary-dark px-2 py-1 rounded-lg [&&]:mb-2"
       type="submit">Sign Up</button

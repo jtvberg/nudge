@@ -21,16 +21,21 @@ function createAuthStore() {
       })
       if (error) throw error
       set(data.user)
+      window.dispatchEvent(new Event('auth-signin'))
       return data
     },
     signOut: async () => {
       const { error } = await supabase.auth.signOut()
       if (error) throw error
       set(null)
+      window.dispatchEvent(new Event('auth-signout'))
     },
     init: async () => {
       const { data: { user } } = await supabase.auth.getUser()
       set(user)
+      if (user) {
+        window.dispatchEvent(new Event('auth-signin'))
+      }
     }
   }
 }

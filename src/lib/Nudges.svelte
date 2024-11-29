@@ -46,8 +46,20 @@
         nudges.filter((nudge) => nudge.who === filter),
     );
 
+    window.addEventListener('auth-signout', () => {
+        nudgeStore.clear();
+    });
+
+    window.addEventListener('auth-signin', () => {
+        nudgeStore.initializeSync();
+    });
+
     onDestroy(() => {
         nudgeStore.destroy();
+        window.removeEventListener('auth-signout', () => nudgeStore.clear());
+        window.removeEventListener('auth-signin', () =>
+            nudgeStore.initializeSync(),
+        );
     });
 </script>
 
@@ -122,7 +134,7 @@
         {/if}
     </section>
 
-    <section class="flex flex-wrap justify-center gap-1.5">
+    <section class="flex flex-wrap justify-center gap-1.5 mx-10">
         {#if uniqueWhos.length > 0}
             {#if filter === 'all'}
                 {#each uniqueWhos as who}
@@ -137,17 +149,17 @@
         {/if}
     </section>
     {#if $authStore}
-        <div class="h-6 w-6 absolute right-5 bottom-5">
+        <div class="h-4 w-4 absolute right-5 bottom-5">
             <button
                 on:click={handleLogout}
-                class="btn-primary btn-primary-dark p-2"
+                class="btn-primary btn-primary-dark p-[3px]"
                 title="Logout"
             >
                 <svg
                     class="w-6 h-6"
                     fill="none"
                     stroke="currentColor"
-                    viewBox="0 0 24 24"
+                    viewBox="0 0 21 24"
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
