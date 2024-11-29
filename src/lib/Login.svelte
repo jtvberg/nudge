@@ -4,6 +4,7 @@
   let email = '';
   let password = '';
   let error = null;
+  let signUp = false;
 
   async function handleLogin() {
     try {
@@ -15,10 +16,8 @@
   }
 </script>
 
-<section
-  class="gap-2 p-2 mt-2 h-screen grid grid-rows-[min-content_1fr_min-content] w-3/4 justify-center self-center"
->
-  <div class="text-lg font-bold">Login</div>
+<section class="gap-2 p-2 mt-2 h-screen w-3/4 justify-center self-center">
+  <div class="text-lg font-bold mb-1">Login</div>
   <form
     class="form-container form-container-dark flex flex-col gap-1"
     on:submit|preventDefault={handleLogin}
@@ -36,23 +35,19 @@
     <div>
       <label for="password">Password</label>
       <input
-        class="input-field input-field-dark"
+        class="input-field input-field-dark mb-1"
         type="password"
         id="password"
         bind:value={password}
         required
       />
     </div>
-    <button
-      class="btn-primary btn-primary-dark px-2 py-1 rounded-lg [&&]:mb-2"
-      type="submit">Login</button
-    >
-    <button
-      class="btn-primary btn-primary-dark px-2 py-1 rounded-lg [&&]:mb-2"
-      type="submit">Sign Up</button
-    >
+    <button class="btn-primary py-1 rounded-md" type="submit">Login</button>
     {#if error}
       <div class="text-lg text-red-500 h-4 self-center">{error}</div>
     {/if}
   </form>
+  <div class="flex justify-center mt-2">
+    <button class="btn-secondary">Sign Up</button>
+  </div>
 </section>

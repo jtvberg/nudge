@@ -20,7 +20,7 @@
   }
 
   .input-field {
-    @apply no-draggable w-full px-1 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500;
+    @apply no-draggable w-full px-1 py-1 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500;
   }
 
   .input-field-dark {
@@ -33,6 +33,10 @@
 
   .btn-primary-dark {
     @apply bg-neutral-900 hover:bg-neutral-700 focus:ring-sky-400 focus:ring-offset-neutral-900;
+  }
+
+  .btn-secondary {
+    @apply no-draggable sm:w-auto text-sky-600 hover:text-sky-400 transition-colors;
   }
 
   .filter-btn {

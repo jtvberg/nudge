@@ -78,7 +78,7 @@
                         name="new-nudge-who"
                         type="text"
                         placeholder="Who"
-                        class="input-field input-field-dark"
+                        class="input-field input-field-dark py-0"
                     />
                 </div>
                 <div class=" flex-[2]">
@@ -87,7 +87,7 @@
                         name="new-nudge-what"
                         type="text"
                         placeholder="What"
-                        class="input-field input-field-dark"
+                        class="input-field input-field-dark py-0"
                     />
                 </div>
                 <button class="btn-primary btn-primary-dark">
