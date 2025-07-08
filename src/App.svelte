@@ -8,7 +8,7 @@
 <main class="app-main app-main-dark">
 	{#if !$authStore}
 		<Login />
-		<!-- <Signup /> -->
+		<Signup />
 	{/if}
 	<Nudges />
 </main>

@@ -28,11 +28,11 @@
   }
 
   .btn-primary {
-    @apply no-draggable sm:w-auto bg-sky-600 text-white rounded-full shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors;
+    @apply no-draggable sm:w-auto bg-transparent text-white rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors;
   }
 
   .btn-primary-dark {
-    @apply bg-neutral-900 hover:bg-neutral-700 focus:ring-sky-400 focus:ring-offset-neutral-900;
+    @apply bg-transparent hover:text-blue-500 focus:ring-sky-400 focus:ring-offset-neutral-900;
   }
 
   .btn-secondary {
