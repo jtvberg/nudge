@@ -21,7 +21,7 @@
         try {
             await nudgeStore.add(nudge);
             nudge = { who: '', what: '' };
-            document.querySelectorAll('input').forEach((ele) => ele.blur());
+            whoInput && whoInput.focus();
         } catch (error) {
             console.error('Failed to add nudge:', error);
         }
