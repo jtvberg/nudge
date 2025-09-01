@@ -3,9 +3,26 @@
   "description": "Get a nudge when you need it",
   "license": "MIT",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.7.0",
   "type": "module",
   "main": "electron/main.cjs",
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "build/icon.icns",
+        "arch": "universal"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": ["darwin"],
+          "config": {
+            "arch": "universal"
+          }
+        }
+      ]
+    }
+  },
   "scripts": {
     "dev": "concurrently --kill-others \"vite\" \"npm run dev:electron\"",
     "dev:vite": "vite",
@@ -16,24 +33,24 @@
     "make": "npm run build && electron-forge make"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^7.4.0",
-    "@electron-forge/maker-deb": "^7.4.0",
-    "@electron-forge/maker-rpm": "^7.4.0",
-    "@electron-forge/maker-squirrel": "^7.4.0",
-    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/cli": "^7.8.3",
+    "@electron-forge/maker-deb": "^7.8.3",
+    "@electron-forge/maker-rpm": "^7.8.3",
+    "@electron-forge/maker-squirrel": "^7.8.3",
+    "@electron-forge/maker-zip": "^7.8.3",
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
     "autoprefixer": "^10.4.20",
-    "concurrently": "^9.1.0",
+    "concurrently": "^9.2.1",
     "cross-env": "^7.0.3",
-    "electron": "^37.2.0",
+    "electron": "^37.3.1",
     "electron-reload": "^2.0.0-alpha.1",
     "postcss": "^8.4.49",
     "svelte": "^4.2.20",
     "tailwindcss": "^3.4.17",
-    "vite": "^5.4.11"
+    "vite": "^5.4.19"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.46.1",
+    "@supabase/supabase-js": "^2.56.0",
     "electron-squirrel-startup": "^1.0.0"
   }
 }
